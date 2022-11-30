@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
-    
-    void Start()
+    private const string moveAxisX = "Horizontal";
+    private const string moveAxisZ = "Vertical";
+
+    public Vector3 moveInput
     {
-        
+        get
+        {
+            return new Vector3(Input.GetAxisRaw(moveAxisX), 0, Input.GetAxisRaw(moveAxisZ));
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

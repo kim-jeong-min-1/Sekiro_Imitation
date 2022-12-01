@@ -6,10 +6,9 @@ public class PlayerCamera : MonoBehaviour
 {
     [SerializeField] private float rotationSpeed;
     [SerializeField] private Transform target;
-    [SerializeField] private Transform player;
 
-    private float mouseX;
-    private float mouseY;
+    [HideInInspector] public float mouseX;
+    [HideInInspector] public float mouseY;
 
     private void Start()
     {
@@ -31,7 +30,6 @@ public class PlayerCamera : MonoBehaviour
         LookAtToTarget();
 
         target.rotation = Quaternion.Euler(mouseY, mouseX, 0f);
-        //player.rotation = Quaternion.Euler(0f, mouseX, 0f);
     }
 
     private void LookAtToTarget()

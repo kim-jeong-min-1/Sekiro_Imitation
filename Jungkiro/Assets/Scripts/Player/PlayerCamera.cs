@@ -25,7 +25,7 @@ public class PlayerCamera : MonoBehaviour
     private void RotateToMousePos()
     {
         mouseY += -Input.GetAxis("Mouse Y") * rotationSpeed;
-        mouseX -= -Input.GetAxis("Mouse X") * rotationSpeed;
+        mouseX += Input.GetAxis("Mouse X") * rotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -30, 60);
 
         LookAtToTarget();
@@ -37,6 +37,6 @@ public class PlayerCamera : MonoBehaviour
     private void LookAtToTarget()
     {
         Vector3 angle = (target.transform.position - transform.position).normalized;
-        transform.rotation = Quaternion.Euler(new Vector3(angle.x, angle.y, 0f));
+        transform.forward = angle;
     }
 }

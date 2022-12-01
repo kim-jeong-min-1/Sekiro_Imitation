@@ -281,7 +281,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStats:
-    moveSpeed: 10
+    moveSpeed: 5
+  turnSmoothVelocity: 0
+  turnSmoothTime: 0.1
 --- !u!114 &941095253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +448,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 8bd37e3b34e9f9149acce85a424f558f, type: 2}
+    - target: {fileID: 9500000, guid: 8afe723514f619143a45ea089476b2cc, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8afe723514f619143a45ea089476b2cc, type: 3}
 --- !u!4 &1205363000 stripped

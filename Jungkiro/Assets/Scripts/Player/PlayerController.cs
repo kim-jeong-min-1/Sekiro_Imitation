@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private Rigidbody rb;
     
-    [SerializeField]
-    private PlayerStats playerStats;
+    [SerializeField] private PlayerStats playerStats;
+
+    [SerializeField] private float turnSmoothVelocity;
+    [SerializeField] private float turnSmoothTime = 0.1f;
 
     private void Awake()
     {
@@ -18,11 +20,19 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        PlayerMovement();
+        PlayerMovement(playerInput.moveInput);
     }
 
-    private void PlayerMovement()
+    private void PlayerMovement(Vector3 moveInput)
     {
-        rb.velocity = playerInput.moveInput * playerStats.moveSpeed + Vector3.up * rb.velocity.y;
+        var moveDirection = (transform.forward * moveInput.z + transform.right * moveInput.x).normalized;
+        var velocity = moveDirection * playerStats.moveSpeed + Vector3.up * rb.velocity.y;
+
+        rb.velocity = velocity;
+    }
+
+    private void PlayerRotate()
+    {
+        
     }
 }

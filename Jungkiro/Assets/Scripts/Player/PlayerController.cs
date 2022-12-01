@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerMovement(playerInput.moveInput);
+        PlayerRotate();
     }
 
     private void PlayerMovement(Vector3 moveInput)
@@ -33,6 +34,9 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerRotate()
     {
-        
+        var targetRotation = rb.velocity.normalized;
+        var rotationValue = Mathf.SmoothDamp(transform.eulerAngles.y, targetRotation.magnitude, ref turnSmoothVelocity, turnSmoothTime);
+
+        transform.eulerAngles = Vector3.up * rotationValue;
     }
 }

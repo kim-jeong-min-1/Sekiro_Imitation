@@ -31,7 +31,7 @@ public class PlayerCamera : MonoBehaviour
         LookAtToTarget();
 
         target.rotation = Quaternion.Euler(mouseY, mouseX, 0f);
-        player.rotation = Quaternion.Euler(0f, mouseX, 0f);
+        //player.rotation = Quaternion.Euler(0f, mouseX, 0f);
     }
 
     private void LookAtToTarget()

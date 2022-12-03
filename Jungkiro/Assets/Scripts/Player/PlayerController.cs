@@ -4,39 +4,47 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private PlayerInput playerInput;
-    private PlayerCamera playerCamera;
-    private Rigidbody rb;
-
-    [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private PlayerStats playerStats;
+
+    private PlayerInput playerInput;
+    private Rigidbody rb;
+    private CameraHandler playerCamera;
+
+    private Vector3 rotateDirection;
+    private float turnSmoothTime = 5.5f;
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        playerCamera = transform.GetChild(0).GetComponentInChildren<PlayerCamera>();
+        playerCamera = GameObject.Find("Camera Holder").GetComponent<CameraHandler>();
         rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
         PlayerMovement(playerInput.moveInput);
-        PlayerRotate();
+        PlayerRotate(rotateDirection);
     }
 
     private void PlayerMovement(Vector3 moveInput)
     {
-        var velocity = moveInput * playerStats.moveSpeed + Vector3.up * rb.velocity.y;
+        var targetDirection = playerCamera.transform;
+        var moveDirection = targetDirection.forward * moveInput.z + targetDirection.right * moveInput.x;
+        moveDirection.y = 0;
 
+        rotateDirection = moveDirection;
+        moveDirection = moveDirection.normalized;
+
+        var velocity = moveDirection * playerStats.moveSpeed + Vector3.up * rb.velocity.y;
         rb.velocity = velocity;
     }
 
-    private void PlayerRotate()
+    private void PlayerRotate(Vector3 direction)
     {
-        Vector3 targetDir = playerInput.moveInput;
+        Vector3 targetDir = direction;
         targetDir.y = 0;
 
-        if(targetDir == Vector3.zero) targetDir = transform.forward;
+        if (targetDir == Vector3.zero) targetDir = transform.forward;
 
         Quaternion rotationValue = Quaternion.LookRotation(targetDir);
         Quaternion targetRotation = Quaternion.Slerp(transform.rotation, rotationValue, Time.deltaTime * turnSmoothTime);

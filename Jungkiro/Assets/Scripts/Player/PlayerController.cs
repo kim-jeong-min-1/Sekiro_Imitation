@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private CameraHandler playerCamera;
     [SerializeField] private PlayerStats playerStats;
 
     private PlayerInput playerInput;
     private Rigidbody rb;
-    private CameraHandler playerCamera;
+    private Animator playerAnimator;
 
     private Vector3 rotateDirection;
     private float turnSmoothTime = 5.5f;
@@ -16,8 +17,8 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
-        playerCamera = GameObject.Find("Camera Holder").GetComponent<CameraHandler>();
         rb = GetComponent<Rigidbody>();
+        playerAnimator = transform.GetChild(0).GetComponent<Animator>(); 
     }
 
     private void FixedUpdate()

@@ -15,4 +15,6 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    private bool isAttack => Input.GetMouseButtonDown(0);
+
 }
